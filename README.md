@@ -6,7 +6,7 @@ For your next project, you will solve the issues that many of you pointed out vi
 
 The Java mechanism to handle issues of data integrity at runtime is through Exceptions. We want to add to our code base the rejection of any guess or answer that violates our constraints. We also want to enforce programmatically that people use our methods to ask for valid data, and do not do things like ask for the 6th color of our guess.
 
-Java already provides several exception classes that we could use, such as ``IllegalArgumentException`` and ``IndexOutOfBoundsException``. The ``IllegalArugmentException`` is very broad however, and only via it's message can we distinguish what the cause of the exception might have been. So we want to create two new exceptions:
+Java already provides several exception classes that we could use, such as ``IllegalArgumentException`` and ``IndexOutOfBoundsException``. The ``IllegalArugmentException`` is very broad however, and only via its message can we distinguish what the cause of the exception might have been. So we want to create two new exceptions:
 1. ``MastermindIllegalColorException``
 2. ``MastermindIllegalLengthException``
 That should capture the case that a method was provided with a guess or answer that contained a color not part of our original six colors (``MastermindIllegalColorException``). The ``MastermindIllegalLengthException`` should be thrown if a guess or answer is not 4 colors long.
