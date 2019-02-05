@@ -13,6 +13,8 @@ That should capture the case that a method was provided with a guess or answer t
 
 These should be checked exceptions, and the Mastermind class should handle the exceptions to enforce that the user's input is always legal. If it is not, display a message indicating why the input was illegal and ask them to try again. Do **not** count the invalid guess as one of the 10 guesses of the game.
 
+**Note**: In the Model-View-Controller architecture, only the View should be interacting with the user. That means no prints or input in any class other than Mastermind.
+
 For any other issues your code may encounter at runtime, use one of the standard Java Class Library Exceptions to report it. As part of your testing, you should add new test cases to your JUnit test suite that check that invalid input results in exceptions being thrown. Use the ``assertThrows()`` assertion to test. 
 
 The first project was graded based on a cooperative user. This project will be graded attempting to break your methods. 
