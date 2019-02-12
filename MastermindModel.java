@@ -1,8 +1,15 @@
 package model;
 
+import controller.MastermindIllegalColorException;
+import controller.MastermindIllegalLengthException;
+
 /**
  * 
- * @author Lucia Wang
+ * @author Lucia Wang 
+ * Professor Misurda
+ * CS 335
+ * Project 1: Mastermind 
+ * In MVC, MastermindModel is model
  *
  */
 public class MastermindModel {
@@ -11,6 +18,13 @@ public class MastermindModel {
 
 	// Only these methods may be public - you may not create any additional
 	// public methods (and NO public fields)
+
+	/**
+	 * constructor to generate a random solution w the 6 letters. 
+	 * possible colors =
+	 * "r", "o", "y", "g", "b", "p"
+	 * 
+	 */
 	public MastermindModel() {
 		// TODO Make the answer
 		for (int i = 0; i < 4; i++) {
@@ -41,21 +55,25 @@ public class MastermindModel {
 	 * 
 	 * @param answer
 	 *            A string that represents the four color solution
+	 * @throws MastermindIllegalColorException
+	 * @throws MastermindIllegalLengthException
 	 */
-	public MastermindModel(String answer) {
-		// TODO Take answer and somehow store it as your answer. Make sure the
+	public MastermindModel(String answer) throws MastermindIllegalColorException, MastermindIllegalLengthException {
+		// Takes answer and stores it as your answer. Make sure the
 		// getColorAt method still works
+
 		this.answer = answer;
 	}
 
+	/**
+	 * * Return color at position index as a char (first converted if stored as a
+	 * number)
+	 * 
+	 * @param answer
+	 *            A string that represents the four color solution
+	 * @returns char at index index
+	 */
 	public char getColorAt(int index) {
-		/*
-		 * Return color at position index as a char (first converted if stored as a
-		 * number)
-		 */
 		return answer.charAt(index);
 	}
-
-	// Create as many private methods as you like
-
 }

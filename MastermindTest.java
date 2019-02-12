@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import controller.MastermindController;
+import controller.MastermindIllegalColorException;
+import controller.MastermindIllegalLengthException;
 import model.MastermindModel;
 
 /**
@@ -21,9 +23,12 @@ class MastermindTest {
 
 	/**
 	 * Test method for {@link MastermindController#isCorrect(java.lang.String)}.
+	 * 
+	 * @throws MastermindIllegalLengthException
+	 * @throws MastermindIllegalColorException
 	 */
 	@Test
-	void testIsCorrect() {
+	void testIsCorrect() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// Build a model with a known answer, using our special testing constructor
 		MastermindModel answer = new MastermindModel("rrrt");
 		// Build the controller from the model
@@ -39,7 +44,7 @@ class MastermindTest {
 	}
 
 	@Test
-	void testIsCorrect1() {
+	void testIsCorrect1() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// Build a model with a known answer, using our special testing constructor
 		MastermindModel answer = new MastermindModel("groy");
 		// Build the controller from the model
@@ -53,9 +58,9 @@ class MastermindTest {
 		// Make as many more assertions as you feel you need to test the
 		// MastermindController.isCorrect method
 	}
-	
+
 	@Test
-	void testIsCorrect2() {
+	void testIsCorrect2() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// Build a model with a known answer, using our special testing constructor
 		MastermindModel answer = new MastermindModel("tree");
 		// Build the controller from the model
@@ -69,14 +74,16 @@ class MastermindTest {
 		// Make as many more assertions as you feel you need to test the
 		// MastermindController.isCorrect method
 	}
-	
-	
+
 	/**
 	 * Test method for
 	 * {@link MastermindController#getRightColorRightPlace(java.lang.String)}.
+	 * 
+	 * @throws MastermindIllegalLengthException
+	 * @throws MastermindIllegalColorException
 	 */
 	@Test
-	void testGetRightColorRightPlace() {
+	void testGetRightColorRightPlace() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// Build a model with a known answer, using our special testing constructor
 		MastermindModel answer = new MastermindModel("rrrr");
 		// Build the controller from the model
@@ -91,9 +98,9 @@ class MastermindTest {
 		// You'll need lots more of these to convince yourself your implementation is
 		// right
 	}
-	
+
 	@Test
-	void testGetRightColorRightPlace2() {
+	void testGetRightColorRightPlace2() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		MastermindModel answer = new MastermindModel("rrrb");
 		MastermindController controllerUnderTest = new MastermindController(answer);
 		assertEquals(controllerUnderTest.getRightColorRightPlace("rbrb"), 3);
@@ -107,9 +114,12 @@ class MastermindTest {
 	/**
 	 * Test method for
 	 * {@link MastermindController#getRightColorWrongPlace(java.lang.String)}.
+	 * 
+	 * @throws MastermindIllegalLengthException
+	 * @throws MastermindIllegalColorException
 	 */
 	@Test
-	void testGetRightColorWrongPlace() {
+	void testGetRightColorWrongPlace() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// TODO this one you're all on your own
 		MastermindModel answer = new MastermindModel("groy");
 		MastermindController controllerUnderTest = new MastermindController(answer);
@@ -117,15 +127,15 @@ class MastermindTest {
 	}
 
 	@Test
-	void testGetRightColorWrongPlace1() {
+	void testGetRightColorWrongPlace1() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// TODO this one you're all on your own
 		MastermindModel answer = new MastermindModel("groy");
 		MastermindController controllerUnderTest = new MastermindController(answer);
 		assertEquals(controllerUnderTest.getRightColorWrongPlace("royy"), 2);
 	}
-	
+
 	@Test
-	void testGetRightColorWrongPlace2() {
+	void testGetRightColorWrongPlace2() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// TODO this one you're all on your own
 		MastermindModel answer = new MastermindModel("grrg");
 		MastermindController controllerUnderTest = new MastermindController(answer);
