@@ -1,9 +1,11 @@
 package tests;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import View.Mastermind;
 import controller.MastermindController;
 import controller.MastermindIllegalColorException;
 import controller.MastermindIllegalLengthException;
@@ -83,7 +85,7 @@ class MastermindTest {
 	 * @throws MastermindIllegalColorException
 	 */
 	@Test
-	void testGetRightColorRightPlace() throws MastermindIllegalColorException, MastermindIllegalLengthException {
+	void testGetRightColorRightPlace1() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// Build a model with a known answer, using our special testing constructor
 		MastermindModel answer = new MastermindModel("rrrr");
 		// Build the controller from the model
@@ -127,7 +129,7 @@ class MastermindTest {
 	}
 
 	@Test
-	void testGetRightColorWrongPlace1() throws MastermindIllegalColorException, MastermindIllegalLengthException {
+	void testGetRightColorWrongPlace11() throws MastermindIllegalColorException, MastermindIllegalLengthException {
 		// TODO this one you're all on your own
 		MastermindModel answer = new MastermindModel("groy");
 		MastermindController controllerUnderTest = new MastermindController(answer);
@@ -140,5 +142,66 @@ class MastermindTest {
 		MastermindModel answer = new MastermindModel("grrg");
 		MastermindController controllerUnderTest = new MastermindController(answer);
 		assertEquals(controllerUnderTest.getRightColorWrongPlace("rrrr"), 0);
+	}
+
+	/**
+	 * Test method for
+	 * {@link MastermindController#getRightColorRightPlace(java.lang.String)}.
+	 * @throws MastermindIllegalLengthException 
+	 * @throws MastermindIllegalColorException 
+	 */
+	@Test
+	public void testGetRightColorRightPlace() throws MastermindIllegalColorException, MastermindIllegalLengthException {
+		MastermindModel answer = new MastermindModel("rrrr");
+		MastermindController controllerUnderTest = new MastermindController(answer);
+
+		assertEquals(controllerUnderTest.getRightColorRightPlace("rrrr"), 4); // Checks if correct guess returns max
+																				// number of counts (4)
+		assertEquals(controllerUnderTest.getRightColorRightPlace("oooo"), 0); // Checks if guess with no right colors in
+																				// the right place returns 0
+	}
+
+	/**
+	 * Test method for
+	 * {@link MastermindController#getRightColorWrongPlace(java.lang.String)}.
+	 * @throws MastermindIllegalLengthException 
+	 * @throws MastermindIllegalColorException 
+	 */
+	@Test
+	public void testGetRightColorWrongPlace1() throws MastermindIllegalColorException, MastermindIllegalLengthException {
+		MastermindModel answer = new MastermindModel("rbrb");
+		MastermindController controllerUnderTest = new MastermindController(answer);
+
+		assertEquals(controllerUnderTest.getRightColorWrongPlace("rbrb"), 0); // Checks if correct colors in the correct
+																				// place are NOT counted
+		assertEquals(controllerUnderTest.getRightColorWrongPlace("yyyy"), 0); // Checks if all incorrect colors returns
+																				// 0
+		assertEquals(controllerUnderTest.getRightColorWrongPlace("brbr"), 4); // Checks if all correct colors in wrong
+																				// place returns max count (4)
+		assertEquals(controllerUnderTest.getRightColorWrongPlace("byyy"), 1); // Checks if duplicates are not accounted
+																				// for
+
+	}
+
+	/**
+	 * Test method for {@link MastermindIllegalLengthException}.
+	 */
+	@Test
+	public void testThrowsMastermindIllegalLengthException() {
+
+		assertThrows(MastermindIllegalLengthException.class, () -> {
+			Mastermind.validate("rr");
+		});
+	}
+
+	/**
+	 * Test method for {@link MastermindIllegalLengthException}.
+	 */
+	@Test
+	public void testThrowsMastermindIllegalColorException() {
+
+		assertThrows(MastermindIllegalColorException.class, () -> {
+			Mastermind.validate("asdf");
+		});
 	}
 }

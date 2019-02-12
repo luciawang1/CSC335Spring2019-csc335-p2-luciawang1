@@ -1,3 +1,4 @@
+package View;
 import java.util.Scanner;
 
 import controller.MastermindController;
@@ -7,12 +8,8 @@ import model.MastermindModel;
 
 /**
  * 
- * @author Lucia Wang 
- * CS 335
- * Professor Misurda
- * Project 1: Mastermind 
- * MVC: Mastermind class represents
- *         view of Mastermind
+ * @author Lucia Wang CS 335 Professor Misurda Project 1: Mastermind MVC:
+ *         Mastermind class represents view of Mastermind
  */
 
 public class Mastermind {
@@ -66,49 +63,43 @@ public class Mastermind {
 			// Read up to ten user inputs
 			while (numGuesses <= 10) {
 				System.out.println("Enter guess number " + numGuesses + ": ");
-				numGuesses += 1;
 				String guess = scanner.nextLine().toLowerCase();
-				while (true) {
-					try {
-						// illegal length exception
-						if (guess.length() != 4) {
-							throw new MastermindIllegalLengthException("");
-						}
-						// illegal color exception
-						for (int i = 0; i < 4; i++) {
-							if (guess.charAt(i) != 'r' && guess.charAt(i) != 'o' && guess.charAt(i) != 'y'
-									&& guess.charAt(i) != 'g' && guess.charAt(i) != 'b' && guess.charAt(i) != 'p') {
-								throw new MastermindIllegalColorException("");
-							}
-						}
-						break;
+				try {
 
-						// catch illegal length exception
-					} catch (MastermindIllegalLengthException e) {
-						System.out.println("invalid length. Guess again.");
-						guess = scanner.nextLine().toLowerCase();
-						continue;
+					validate(guess);
 
-						// catch illegal color exception
-					} catch (MastermindIllegalColorException e) {
-						System.out.println("Your guess contains invalid colors.");
-						for (int i = 0; i < 4; i++) {
-							if (guess.charAt(i) != 'r' && guess.charAt(i) != 'o' && guess.charAt(i) != 'y'
-									&& guess.charAt(i) != 'g' && guess.charAt(i) != 'b' && guess.charAt(i) != 'p') {
-								System.out.println(guess.charAt(i) + " is an invalid color.");
-							}
+					// catch illegal length exception
+				} catch (MastermindIllegalLengthException e) {
+					System.out.println("invalid length. Guess again.");
+					guess = scanner.nextLine().toLowerCase();
+					continue;
+
+					// catch illegal color exception
+				} catch (MastermindIllegalColorException e) {
+					System.out.println("Your guess contains invalid colors.");
+					for (int i = 0; i < 4; i++) {
+						if (guess.charAt(i) != 'r' && guess.charAt(i) != 'o' && guess.charAt(i) != 'y'
+								&& guess.charAt(i) != 'g' && guess.charAt(i) != 'b' && guess.charAt(i) != 'p') {
+							System.out.println(guess.charAt(i) + " is an invalid color.");
 						}
-						System.out.println("Guess again.");
-						guess = scanner.nextLine().toLowerCase();
-						continue;
 					}
+					System.out.println("Guess again.");
+					guess = scanner.nextLine().toLowerCase();
+					continue;
+
 				}
 
-				// Check whether or not the input is correct (by asking the controller)
+				// win
 				if (controller.isCorrect(guess)) {
 					System.out.println("You win!");
 					System.out.println();
 					break;
+				}
+
+				// lose
+				if (numGuesses == 10 && !controller.isCorrect(guess)) {
+					System.out.println("You lose. The correct answer was: " + answer);
+					System.out.println();
 				}
 
 				// display the relevant statistics (by asking the controller)
@@ -116,12 +107,7 @@ public class Mastermind {
 				System.out.println(
 						"Colors correct but in the wrong position: " + controller.getRightColorWrongPlace(guess));
 				System.out.println();
-			}
-
-			// Determine win or loss
-			if (numGuesses == 11) {
-				System.out.println("You lose. The correct answer was: " + answer);
-				System.out.println();
+				numGuesses++;
 			}
 
 			// allow the user to play the game multiple times
@@ -136,6 +122,20 @@ public class Mastermind {
 			}
 		}
 
+	}
+
+	public static void validate(String guess) throws MastermindIllegalLengthException, MastermindIllegalColorException {
+		// illegal length exception
+		if (guess.length() != 4) {
+			throw new MastermindIllegalLengthException("");
+		}
+		// illegal color exception
+		for (int i = 0; i < 4; i++) {
+			if (guess.charAt(i) != 'r' && guess.charAt(i) != 'o' && guess.charAt(i) != 'y' && guess.charAt(i) != 'g'
+					&& guess.charAt(i) != 'b' && guess.charAt(i) != 'p') {
+				throw new MastermindIllegalColorException("");
+			}
+		}
 	}
 
 }

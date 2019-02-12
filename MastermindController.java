@@ -4,13 +4,10 @@ import model.MastermindModel;
 
 /**
  * 
- * @author Lucia Wang
- * CS 335
- * Professor Misurda
- * Project 2: Mastermind
- * MVC: MastermindController is controller: determines if a guess is correct
- * by comparing it to the correct answer
- * Tells you how many are right color right place and right color wrong place
+ * @author Lucia Wang CS 335 Professor Misurda Project 2: Mastermind MVC:
+ *         MastermindController is controller: determines if a guess is correct
+ *         by comparing it to the correct answer Tells you how many are right
+ *         color right place and right color wrong place
  *
  */
 public class MastermindController {
@@ -19,17 +16,20 @@ public class MastermindController {
 
 	/**
 	 * Constructor
-	 * @param MastermindModel object with answer
+	 * 
+	 * @param MastermindModel
+	 *            object with answer
 	 */
 	public MastermindController(MastermindModel model) {
 		this.model = model;
 	}
-	
-	
+
 	/**
-	 * determines if a guess is correct meaning all the characters in guess 
-	 * match the answer
-	 * @param guess: a string that represents the user's guess
+	 * determines if a guess is correct meaning all the characters in guess match
+	 * the answer
+	 * 
+	 * @param guess:
+	 *            a string that represents the user's guess
 	 * @return true if guess is correct, false if not
 	 */
 	public boolean isCorrect(String guess) {
@@ -72,39 +72,32 @@ public class MastermindController {
 	 *          color wrong place
 	 */
 	public int getRightColorWrongPlace(String guess) {
-		// use 2d array
-		char[][] colors = new char[4][2];
-		int count = 0;
+		int i = 0;
+		int j;
+		int correct = 0;
 
-		// answer
-		String a = "";
-		for (int i = 0; i < 4; i++) {
-			a = a + "" + model.getColorAt(i);
-		}
-
-		// populate 2d array: column 1 = answer, column 2 = guess
-		for (int i = 0; i < 4; i++) {
-
-			// prevent it from counting right color right place;
-			if (guess.charAt(i) == model.getColorAt(i)) {
-				colors[i][0] = 'z';
-				colors[i][0] = 'x';
-			} else {
-
-				colors[i][0] = model.getColorAt(i);
-				colors[i][1] = guess.charAt(i);
-			}
-		}
-
-		// count right color wrong place
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (colors[i][0] == colors[j][1]) {
-					count += 1;
-					break;
+		int[] checked = new int[4];
+		// checked so we can track right color right place and right color wrong place
+		// without counting duplicates
+		while (i < 4) {
+			if (guess.charAt(i) != this.model.getColorAt(i)) {
+				j = 0;
+				while (j < 4) {
+					if (checked[j] == 0) {
+						if (guess.charAt(i) == this.model.getColorAt(j)
+								&& guess.charAt(j) != this.model.getColorAt(j)) {
+							correct++;
+							checked[j] = 1;
+							break;
+						}
+					}
+					j++;
 				}
+			} else {
+				checked[i] = 1;
 			}
+			i++;
 		}
-		return count;
+		return correct;
 	}
 }
